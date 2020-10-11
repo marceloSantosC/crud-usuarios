@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="303.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.views.ConnectionPropertiesFormController">
+   <children>
+      <GridPane layoutX="27.0" prefHeight="303.0" prefWidth="351.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="89.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="232.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Usuário" />
+            <Label text="Senha" GridPane.rowIndex="1" />
+            <Label text="Hostname" GridPane.rowIndex="2" />
+            <TextField fx:id="txtUsername" prefHeight="25.0" prefWidth="1.0" GridPane.columnIndex="1" />
+            <PasswordField fx:id="pwfPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtHostname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ButtonBar prefHeight="67.0" prefWidth="249.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+              <buttons>
+                <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
+                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Editar" />
+              </buttons>
+            </ButtonBar>
+            <Label fx:id="lblError" prefHeight="50.0" prefWidth="266.0" textFill="#f51111" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Porta" GridPane.rowIndex="3" />
+            <Label text="Nome do DB" GridPane.rowIndex="4" />
+            <TextField fx:id="txtPorta" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtDbName" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="10.0" />
+         </padding>
+      </GridPane>
+   </children>
+</AnchorPane>
