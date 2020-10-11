@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 
 public class ConnectionPropertiesFormController extends Controller implements Initializable{
 	
@@ -31,12 +30,12 @@ public class ConnectionPropertiesFormController extends Controller implements In
 	@FXML
 	private Label lblError;
 	@FXML
-	private Button btSave;
+	private Button btEdit;
 	@FXML
-	private Button btCancel;
+	private Button btContinue;
 	
 	@FXML
-	public void onBtSaveAction() {
+	public void onBtEditAction() {
 		if (this.checkFormData()) {
 			try {
 				DBProperties.setProperties(txtUsername.getText(), pwfPassword.getText(),
@@ -51,7 +50,7 @@ public class ConnectionPropertiesFormController extends Controller implements In
 	}
 	
 	@FXML
-	public void onBtCancelAction() {
+	public void onBtContinuelAction() {
 		this.close();
 	}
 
@@ -72,16 +71,15 @@ public class ConnectionPropertiesFormController extends Controller implements In
 	}
 	
 	private boolean checkFormData() {
-		if (this.txtUsername.getText().isEmpty() || this.txtHostname.getText().isEmpty() ||
-				this.txtPorta.getText().isEmpty() || this.txtDbName.getText().isEmpty()) {
+		if (this.txtUsername.getText().isBlank()|| this.txtHostname.getText().isBlank() ||
+				this.txtPorta.getText().isBlank() || this.txtDbName.getText().isBlank()) {
 			return false;
 		}
 		return true;
 	}
 	
 	private void close() {
-	    Stage stage = (Stage) this.btCancel.getScene().getWindow();
-	    stage.close();
+		this.getStage().close();
 	}
 
 }

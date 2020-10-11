@@ -5,10 +5,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import application.model.UserDaoMySql;
+import application.model.dao.UserDaoMySql;
 import application.model.entities.User;
+import application.model.services.UserServiceInterface;
 import application.model.services.UserServices;
-import application.model.services.interfaces.UserServiceInterface;
 import application.views.listerners.EventListener;
 import application.views.util.Alerts;
 import javafx.collections.FXCollections;
@@ -72,8 +72,7 @@ public class MainViewController extends Controller implements Initializable, Eve
 	public void onBtEditarAction() {
 		User user = tableViewUsers.getSelectionModel().getSelectedItem();
 		if (user != null) {
-			String name = "UserEditForm.fxml";
-			this.createDialogStage(name, this.getStage(), "Editar um usuário", user);
+			this.openUserEditForm(user, "Editar um usuário");
 		} else {
 			Alerts.showAlert("Informação!", "", "É necessário selecionar uma linha para editar.", AlertType.INFORMATION);
 		}
@@ -82,13 +81,12 @@ public class MainViewController extends Controller implements Initializable, Eve
 	
 	@FXML
 	public void onBtNovoAction() {
-		String name = "UserEditForm.fxml";
-		this.createDialogStage(name, this.getStage(), "Cadastrar um novo usuário", new User());
+		this.openUserEditForm(null, "Cadastrar um novo usuário");
 	}
 	
 	@FXML
 	public void onBtOpenPropertiesConfig() {
-		this.openSetConnectionForm();
+		this.openConnectionPropertiesForm();
 	}
 	
 	public void setUserService (UserServiceInterface userService) {
@@ -97,7 +95,7 @@ public class MainViewController extends Controller implements Initializable, Eve
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		this.openSetConnectionForm();
+		this.openConnectionPropertiesForm();
 
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<User, Integer>("iduser"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
@@ -109,56 +107,49 @@ public class MainViewController extends Controller implements Initializable, Eve
 		this.updateUsersList();
 	}
 	
-	private void openSetConnectionForm () {
-		String name = "ConnectionPropertiesForm.fxml";
-		this.createDialogStage(name, this.getStage(), "Configurar conexão");
-	}
-	
-	private void openEditUserForm() {
-		String name = "UserEditForm.fxml";
-		this.createDialogStage(name, this.getStage(), "Editar um usuário");
-	}
-	
-	public void createDialogStage(String name, Stage parent, String title, User user) {
+	// Abre a view para editar ou cadastrar um usuário
+	private void openUserEditForm(User user, String tittle) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("UserEditForm.fxml"));
+		Pane pane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
-			Pane pane = loader.load();
-			
-			UserEditFormController controller = loader.getController();
-			controller.subscribeListener(this);
+			pane = loader.load();
+		} catch (IOException e) {
+			Alerts.showAlert("Erro", "Não foi possível carregar a tela", e.getMessage(), AlertType.ERROR);
+			return;
+		}
+		UserEditFormController controller = loader.getController();
+		controller.subscribeListener(this);
+		if (user != null) {
 			controller.setUser(user);
 			controller.setUserInForm();
-			
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle(title);
-			dialogStage.setScene(new Scene(pane));
-			dialogStage.setResizable(false);
-			dialogStage.initOwner(parent);
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.showAndWait();
-		} catch (IOException e) {
-			Alerts.showAlert("Erro", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
+		} else {
+			controller.setUser(new User());
 		}
+		this.showViewAsDialogWindow(pane, this.getStage(), tittle, controller);
 	}
 	
-	public void createDialogStage(String name, Stage parent, String title) {
+	public void showViewAsDialogWindow(Pane pane, Stage parent, String title, Controller controller) {
+		Stage dialogStage = new Stage();
+		controller.setStage(dialogStage);
+		dialogStage.setTitle(title);
+		dialogStage.setScene(new Scene(pane));
+		dialogStage.setResizable(false);
+		dialogStage.initOwner(parent);
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.showAndWait();
+	}
+	
+	private void openConnectionPropertiesForm () {
+		String name = "ConnectionPropertiesForm.fxml";
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
+		Pane pane;
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(name));
-			Pane pane = loader.load();
-			
-			Controller controller = loader.getController();
-			controller.setStage(this.getStage());
-			
-			Stage dialogStage = new Stage();
-			dialogStage.setTitle(title);
-			dialogStage.setScene(new Scene(pane));
-			dialogStage.setResizable(false);
-			dialogStage.initOwner(parent);
-			dialogStage.initModality(Modality.WINDOW_MODAL);
-			dialogStage.showAndWait();
+			pane = loader.load();
 		} catch (IOException e) {
-			Alerts.showAlert("Erro", "Erro ao carregar a view", e.getMessage(), AlertType.ERROR);
+			Alerts.showAlert("Erro", "Não foi possível carregar a tela", e.getMessage(), AlertType.ERROR);
+			return;
 		}
+		this.showViewAsDialogWindow(pane, this.getStage(), "Configurar conexão", (Controller) loader.getController());
 	}
 	
 	private void updateUsersList() {
@@ -172,6 +163,7 @@ public class MainViewController extends Controller implements Initializable, Eve
 			List<User> users = (List<User>) serviceReturn;
 			this.usersList = FXCollections.observableArrayList(users);
 			tableViewUsers.setItems(this.usersList);
+			tableViewUsers.refresh();
 		}
 	}
 

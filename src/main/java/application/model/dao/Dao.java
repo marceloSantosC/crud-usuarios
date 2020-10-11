@@ -1,4 +1,4 @@
-package application.model.interfaces;
+package application.model.dao;
 
 import java.util.List;
 

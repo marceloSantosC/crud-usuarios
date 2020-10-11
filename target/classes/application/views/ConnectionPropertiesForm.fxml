@@ -36,8 +36,8 @@
             <TextField fx:id="txtHostname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ButtonBar prefHeight="67.0" prefWidth="249.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
               <buttons>
-                <Button fx:id="btCancel" mnemonicParsing="false" onAction="#onBtCancelAction" text="Cancelar" />
-                  <Button fx:id="btSave" mnemonicParsing="false" onAction="#onBtSaveAction" text="Editar" />
+                  <Button fx:id="btEdit" mnemonicParsing="false" onAction="#onBtEditAction" text="Alterar" />
+                <Button fx:id="btContinue" mnemonicParsing="false" onAction="#onBtContinuelAction" text="Continuar" />
               </buttons>
             </ButtonBar>
             <Label fx:id="lblError" prefHeight="50.0" prefWidth="266.0" textFill="#f51111" GridPane.columnIndex="1" GridPane.rowIndex="5" />

@@ -1,9 +1,8 @@
 package application.model.services;
 
 import application.db.DBException;
+import application.model.dao.Dao;
 import application.model.entities.User;
-import application.model.interfaces.Dao;
-import application.model.services.interfaces.UserServiceInterface;
 import application.views.util.Alerts;
 import javafx.scene.control.Alert.AlertType;
 
@@ -12,6 +11,14 @@ public class UserServices implements UserServiceInterface{
 	
 	public UserServices(Dao<User> userDao) {
 		this.userDao = userDao;
+	}
+	
+	public Object saveOrUpdate(User user) {
+		if (user.getIduser() == null) {
+			return this.create(user);
+		} else {
+			return this.update(user);
+		}
 	}
 
 	@Override

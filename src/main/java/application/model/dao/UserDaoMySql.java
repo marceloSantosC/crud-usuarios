@@ -1,4 +1,4 @@
-package application.model;
+package application.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,6 @@ import java.util.List;
 import application.db.DBException;
 import application.db.ConnectionFactory;
 import application.model.entities.User;
-import application.model.interfaces.Dao;
 
 public class UserDaoMySql implements Dao<User>{
 	private User getUserFromResultSet(ResultSet rs, User user) throws SQLException {

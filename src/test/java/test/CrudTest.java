@@ -3,7 +3,7 @@ package test;
 import java.util.List;
 
 import application.db.DBException;
-import application.model.UserDaoMySql;
+import application.model.dao.UserDaoMySql;
 import application.model.entities.User;
 
 public class CrudTest {
