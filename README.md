@@ -2,6 +2,7 @@
 ## Descrição
   Crud de uma tabela de usuários com nome, e-mail e login. 
 ## Usando o projeto
+0. [Baixar](https://github.com/marceloSantosC/crud-usuarios/archive/master.zip) e extrair o projeto
 1. Criar o banco de dados
 2. Criar as tabelas executando o arquivo DUMP.sql
 3. Configurar a conexão com o banco de dados através da tela ou do arquivo db.properties
