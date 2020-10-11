@@ -33,7 +33,7 @@ public class UserDaoMySql implements Dao<User>{
 			if (user.getIduser() != null) {
 				statement.setInt(1, user.getIduser());
 			} else {
-				statement.setInt(1, 0);
+				statement.setInt(1, -1);
 			}
 			statement.setString(2, user.getUsername());
 			statement.setString(3, user.getEmail());

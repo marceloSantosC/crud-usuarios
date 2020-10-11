@@ -79,16 +79,6 @@ public class UserEditFormController extends Controller implements Initializable 
 		}
 	}
 
-	public void subscribeListener(EventListener listener) {
-		listeners.add(listener);
-	}
-
-	public void notifyListeners() {
-		for (EventListener listener : listeners) {
-			listener.onChange();
-		}
-	}
-
 	private void getFormData() {
 		this.user.setName(this.txtName.getText());
 		this.user.setEmail(this.txtEmail.getText());
@@ -104,5 +94,15 @@ public class UserEditFormController extends Controller implements Initializable 
 
 	private void close() {
 		this.getStage().close();
+	}
+	
+	public void subscribeListener(EventListener listener) {
+		listeners.add(listener);
+	}
+
+	public void notifyListeners() {
+		for (EventListener listener : listeners) {
+			listener.onChange();
+		}
 	}
 }

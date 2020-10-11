@@ -31,7 +31,7 @@ public class MainViewController extends Controller implements Initializable, Eve
 	private UserServiceInterface userService;
 	private ObservableList<User> usersList;
 	
-	/* Componentes da TableView */
+	// Componentes da TableView
 	@FXML
 	private TableView<User> tableViewUsers;
 	@FXML
@@ -43,7 +43,7 @@ public class MainViewController extends Controller implements Initializable, Eve
 	@FXML
 	private TableColumn<User, String> tableColumnEmail;
 	
-	/* Componentes da ButtonBar */
+	// Componentes da ButtonBar 
 	@FXML
 	private Button btExcluir;
 	@FXML
@@ -128,6 +128,7 @@ public class MainViewController extends Controller implements Initializable, Eve
 		this.showViewAsDialogWindow(pane, this.getStage(), tittle, controller);
 	}
 	
+	// Cria uma janela modal a partir de um pane
 	public void showViewAsDialogWindow(Pane pane, Stage parent, String title, Controller controller) {
 		Stage dialogStage = new Stage();
 		controller.setStage(dialogStage);
@@ -149,7 +150,7 @@ public class MainViewController extends Controller implements Initializable, Eve
 			Alerts.showAlert("Erro", "Não foi possível carregar a tela", e.getMessage(), AlertType.ERROR);
 			return;
 		}
-		this.showViewAsDialogWindow(pane, this.getStage(), "Configurar conexão", (Controller) loader.getController());
+		this.showViewAsDialogWindow(pane, this.getStage(), "Configurar conexão com o banco de dados", (Controller) loader.getController());
 	}
 	
 	private void updateUsersList() {
